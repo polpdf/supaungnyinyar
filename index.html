@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Su Paung Nyi Nyar Aung Gyaung Phyar</title>
+  <style>
+    :root {
+      --primary: #c8102e; /* deep red */
+      --secondary: #ffffff;
+      --accent: #f9f9f9;
+      --text: #333;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: var(--secondary);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary), #ff3b3b);
+      color: var(--secondary);
+      text-align: center;
+      padding: 80px 20px 60px;
+      clip-path: ellipse(120% 100% at 50% 0%);
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    main {
+      max-width: 1000px;
+      margin: -40px auto 0;
+      padding: 0 20px 60px;
+    }
+    .card {
+      background: var(--secondary);
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    h2 {
+      color: var(--primary);
+      margin-bottom: 16px;
+      font-size: 1.6rem;
+      border-left: 5px solid var(--primary);
+      padding-left: 12px;
+    }
+    .prizes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .prize {
+      background: var(--accent);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .prize:hover {
+      transform: translateY(-6px);
+    }
+    .prize h3 {
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-size: 1.3rem;
+    }
+    .prize p {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    .ticket-info {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 20px 0;
+    }
+    .cta {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .cta a {
+      background: var(--primary);
+      color: var(--secondary);
+      padding: 14px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .cta a:hover {
+      background: #a50d24;
+    }
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: #f5f5f5;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Su Paung Nyi Nyar Aung Gyaung Phyar</h1>
+    <p>စုပေါင်းညီညာ အောင်ကြောင်းဖြာ</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>About the Campaign</h2>
+      <p>
+        A monthly lucky ticket initiative where winners are announced on the 1st of each month, aligned with Thai lottery results. 
+        Join the excitement and stand a chance to win life‑changing prizes.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Prizes</h2>
+      <div class="prizes">
+        <div class="prize">
+          <h3>1st Prize</h3>
+          <p>10,000,000 MMK</p>
+        </div>
+        <div class="prize">
+          <h3>2nd Prize</h3>
+          <p>5,000,000 MMK</p>
+        </div>
+        <div class="prize">
+          <h3>3rd Prize</h3>
+          <p>3,000,000 MMK</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Ticket Information</h2>
+      <p class="ticket-info">One ticket price: 2,000 MMK</p>
+      <div class="cta">
+        <a href="http://m.me/100088408239603" target="_blank">Get Your Ticket</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Su Paung Nyi Nyar Aung Gyaung Phyar Campaign. All rights reserved.</p>
+  </footer>
+</body>
+</html>
