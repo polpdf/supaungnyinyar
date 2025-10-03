@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ticket Checker - Su Paung Nyi Nyar</title>
+  <style>
+    :root {
+      --primary: #c8102e;
+      --secondary: #ffffff;
+      --accent: #f9f9f9;
+      --text: #333;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: var(--secondary);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary), #ff3b3b);
+      color: var(--secondary);
+      text-align: center;
+      padding: 60px 20px 40px;
+      clip-path: ellipse(120% 100% at 50% 0%);
+    }
+    header h1 { font-size: 2rem; margin-bottom: 10px; }
+    header p { font-size: 1rem; opacity: 0.9; }
+    main {
+      max-width: 800px;
+      margin: -30px auto 0;
+      padding: 0 20px 60px;
+    }
+    .card {
+      background: var(--secondary);
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      padding: 30px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    h2 {
+      color: var(--primary);
+      margin-bottom: 16px;
+      font-size: 1.6rem;
+      border-left: 5px solid var(--primary);
+      padding-left: 12px;
+      text-align: left;
+    }
+
+    /* Ticket style */
+    .ticket {
+      border: 3px solid var(--primary);
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 20px;
+      background: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+      background-color: #fff;
+      position: relative;
+    }
+    .ticket-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .ticket-status {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+    .ticket-buyer {
+      font-size: 1rem;
+      color: #555;
+    }
+    .ticket-price {
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    .ticket-date {
+      position: absolute;
+      bottom: 10px;
+      right: 15px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* Loader */
+    .loader {
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: #f5f5f5;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ticket Validation</h1>
+    <p>စုပေါင်းညီညာ အောင်ကြောင်းဖြာ</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Check Your Ticket</h2>
+      <div id="loading">
+        <div class="loader"></div>
+        <p>Checking ticket...</p>
+      </div>
+      <div id="result" style="display:none;"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Su Paung Nyi Nyar Aung Gyaung Phyar Campaign. All rights reserved.</p>
+  </footer>
+
+  <script>
+    async function checkTicket() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get("id");
+
+      if (!id) {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        document.getElementById("result").innerHTML = "<div class='ticket'><div class='ticket-number'>❌ No ticket ID provided.</div></div>";
+        return;
+      }
+
+      const sheetUrl = "https://opensheet.elk.sh/1_oz0vEV_IW61sCwrbH_ebKQKuImjepjp5JznKCOtbgI/1T";
+
+      try {
+        const response = await fetch(sheetUrl);
+        const data = await response.json();
+        const found = data.find(row => row.ID === id);
+
+        setTimeout(() => {
+          document.getElementById("loading").style.display = "none";
+          document.getElementById("result").style.display = "block";
+
+          if (found) {
+            document.getElementById("result").innerHTML = `
+              <div class="ticket">
+                <div class="ticket-number">Ticket ${found["Ticket Number"]}</div>
+                <div class="ticket-status">Status: ${found.Status || "Available"}</div>
+                <div class="ticket-buyer">Buyer: ${found["Buyer Name"] || "—"}</div>
+                <div class="ticket-price">${found.Price || "2000"} MMK</div>
+                <div class="ticket-date">${found.Month || ""} ${found.Year || ""}</div>
+              </div>`;
+          } else {
+            document.getElementById("result").innerHTML = `
+              <div class="ticket">
+                <div class="ticket-number">❌ Invalid Ticket</div>
+              </div>`;
+          }
+        }, 3000);
+
+      } catch (err) {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        document.getElementById("result").innerHTML = `
+          <div class="ticket">
+            <div class="ticket-number">⚠️ Error fetching ticket data.</div>
+          </div>`;
+        console.error(err);
+      }
+    }
+
+    checkTicket();
+  </script>
+</body>
+</html>
